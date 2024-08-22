@@ -17,7 +17,7 @@ export default function EventComponent() {
 
 
 // 각 이벤트의 콜백 함수는 이벤트 객체를 매개변수로 받을 수 있음  
-// Typescript에서는 이벤트 객체의 타입을 'Event클래스<이벤트가 발생한 요소>'으로 지정 -->> 제너릭 --@@@@@@@@@@
+// Typescript에서는 이벤트 객체의 타입을 'Event클래스<이벤트가 발생한 요소>'으로 지정 -->> 제너릭 --@@@@@@8/22 11시
 const onClick2Handler = (event: MouseEvent<HTMLDivElement>) => {
     console.log(event);
 };
@@ -30,10 +30,24 @@ const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     console.log("change : " + event.target.value);
 };
 
+
+// 콜백 함수의 매개변수가 event 만 받는 형태가 아니라면
+// 직접적으로 전달하여 사용할 수 없음
+// 그러한 함수를 이벤트에 등록하고자 하면 해당 이벤트 속성에
+// 직접 익명 함수 표현식을 사용하여 선언 후 전달 
 const onClick3Handler = (str: string) => {
     alert(str);
-}
+};
 
+const onShowEmployeeNumber = (employeeNumber: string) => {
+    alert(employeeNumber);
+};
+
+let count = 0;
+const onIncrease = () => {
+    count++;
+    console.log(count);
+};
 
 
     return (
@@ -42,13 +56,16 @@ const onClick3Handler = (str: string) => {
         <div onClick={onClick2Handler}>마우스 이벤트</div>
         <input onKeyDown={onKeyDownHandler} onChange={onChangeHandler}/>
         <button onClick={() => onClick3Handler('안녕')}>매개변수 클릭</button>
+
         { employees.map((item, index) => (
             <div key={index}>
                 <h1>{item.name}</h1>
-                <button>사번확인</button>
+                <button onClick={() => onShowEmployeeNumber(item.employeeNumber)}>사번확인</button>
             </div>
         ))}
 
+        <h1>{count}</h1>
+        <button onClick={onIncrease}>+</button>
 
     </>
     )
