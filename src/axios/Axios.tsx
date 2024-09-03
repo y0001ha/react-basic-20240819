@@ -22,7 +22,7 @@ export default function Axios() {
         .then((response) => {
             // response 객체는 status, header, body(data)를 포함하고 있음
             console.log(response.data);
-        });
+        })
         // HTTP 요청에 대한 실패(네트워크에러, 400~500 상태)처리
         .catch((error) => {
             // AxiosError 객체를 받아옴
